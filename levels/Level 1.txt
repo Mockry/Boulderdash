@@ -1,0 +1,11 @@
+W W W W W W W W W W W 
+W E - - - - - - - S W
+W - - - - - - - - - W
+W - - - - - - - - - W
+W - - B - B - - - - W
+W - - - - - - - - - W
+W W W W W W W W - C W
+W W - - - - - - - - W
+W P - - C - - - - - W
+W W W W W W W W W W W 
+
