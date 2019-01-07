@@ -1,11 +1,15 @@
-W W W W W W W W W W W 
-W E - - - - - - - S W
-W - - - - - - - - - W
-W - - - - - - - - - W
-W - - B - B - - - - W
-W - - - - - - - - - W
-W W W W W W W W - C W
-W W - - - - - - - - W
-W P - - C - - - - - W
-W W W W W W W W W W W 
-
+W W W W W W W W W W W W W W W W W W W W
+W D R D R R R D D D D R D D D D D R G W
+W P D D D D D D D D D G D D D D D D G W
+W D G D D D G D D D R R D D D D D D D W
+W G D D D D G D D D D G D D D D D D D W
+W W W W W W W W W W W W W W W R R D D W
+W D D G G R D D D R D D D R G R R D D W
+W D D R R R D R D R D R D R D D D D D W
+W D D G D D D R D G D D D D D D D D G W
+W D D D W W W W W W W W W W W W W W W W
+W D R D D R G R D D R D D D D D D D E W
+W D R D D R R R D D R D D G D D D R R W
+W D D D D D D D D D D D R R R D D D D W 
+W G D D D D G D D D G D D G D D D G G W
+W W W W W W W W W W W W W W W W W W W W
