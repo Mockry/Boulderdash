@@ -7,7 +7,8 @@
 #include "Framework/AssetManager.h"
 #include "Wall.h"
 #include "Player.h"
-
+#include "Boulder.h"
+#include "Dirt.h"
 
 Level::Level()
 	: m_cellSize(64.0f)
@@ -184,7 +185,22 @@ void Level::LoadLevel(int _levelToLoad)
 			m_contents[y][x].push_back(wall);
 		}
 
-		
+		else if (ch == 'D')
+		{
+			Dirt* dirt = new Dirt();
+			dirt->SetLevel(this);
+			dirt->SetGridPosition(x, y);
+			m_contents[y][x].push_back(dirt);
+		}
+
+		else if (ch == 'R')
+		{
+			Boulder* boulder = new Boulder();
+			boulder->SetLevel(this);
+			boulder->SetGridPosition(x, y);
+			m_contents[y][x].push_back(boulder);
+		}
+
 		else if (ch == 'P')
 		{
 			Player* player = new Player();

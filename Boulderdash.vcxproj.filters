@@ -51,6 +51,12 @@
     <ClCompile Include="Wall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Boulder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dirt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Animation.h">
@@ -81,6 +87,12 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Wall.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Boulder.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dirt.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
