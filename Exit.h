@@ -3,9 +3,9 @@
 //Project includes
 #include "GridObject.h"
 
-class Dirt : public GridObject
+class Exit : public GridObject
 {
 public:
-	Dirt();
-	 
+	Exit();
+
 };

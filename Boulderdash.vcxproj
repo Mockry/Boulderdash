@@ -125,12 +125,14 @@
   <ItemGroup>
     <ClCompile Include="Boulder.cpp" />
     <ClCompile Include="Dirt.cpp" />
+    <ClCompile Include="Exit.cpp" />
     <ClCompile Include="Framework\Animation.cpp" />
     <ClCompile Include="Framework\AnimationSystem.cpp" />
     <ClCompile Include="Framework\AssetManager.cpp" />
     <ClCompile Include="Framework\GameObject.cpp" />
     <ClCompile Include="Framework\SpriteObject.cpp" />
     <ClCompile Include="Framework\TextObject.cpp" />
+    <ClCompile Include="Gem.cpp" />
     <ClCompile Include="GridObject.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -140,12 +142,14 @@
   <ItemGroup>
     <ClInclude Include="Boulder.h" />
     <ClInclude Include="Dirt.h" />
+    <ClInclude Include="Exit.h" />
     <ClInclude Include="Framework\Animation.h" />
     <ClInclude Include="Framework\AnimationSystem.h" />
     <ClInclude Include="Framework\AssetManager.h" />
     <ClInclude Include="Framework\GameObject.h" />
     <ClInclude Include="Framework\SpriteObject.h" />
     <ClInclude Include="Framework\TextObject.h" />
+    <ClInclude Include="Gem.h" />
     <ClInclude Include="GridObject.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Player.h" />
