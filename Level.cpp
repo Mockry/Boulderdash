@@ -184,7 +184,6 @@ void Level::LoadLevel(int _levelToLoad)
 			m_contents[y][x].push_back(wall);
 		}
 
-		
 		else if (ch == 'P')
 		{
 			Player* player = new Player();
