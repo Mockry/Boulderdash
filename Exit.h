@@ -7,5 +7,9 @@ class Exit : public GridObject
 {
 public:
 	Exit();
+	void Update(sf::Time _frameTime);
+	void SetOpen();
+
+private:
 
 };

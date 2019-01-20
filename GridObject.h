@@ -24,6 +24,7 @@ public:
 	sf::Vector2i GetGridPosition();
 	bool GetBlocksMovement();
 	bool GetCollectable();
+	bool GetOpen();
 
 protected :
 
@@ -31,4 +32,5 @@ protected :
 	Level* m_level;
 	bool m_blocksMovement;
 	bool m_collectable;
+	bool m_open;
 };

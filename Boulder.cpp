@@ -59,7 +59,7 @@ bool Boulder::AttemptFall(sf::Vector2i _direction, sf::Time _frametime)
 		Player* player = dynamic_cast<Player*>(blocker);
 		if (player != nullptr)
 		{
-			m_level->ReloadLevel();
+			m_level->SetReset();
 		}
 
 		return m_level->MoveObjectTo(this, targetPos);

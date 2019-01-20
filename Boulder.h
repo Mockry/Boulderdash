@@ -15,7 +15,7 @@ public:
 
 
 private:
-
+	
 	float m_timer;
 	float m_fallDelay;
 };

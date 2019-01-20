@@ -88,7 +88,10 @@ void Player::Update(sf::Time _frameTime)
 	}
 }
 
-
+bool Player::GetPendingLoad()
+{
+	return m_pendingLoad;
+}
 
 bool Player::AttemptMove(sf::Vector2i _direction)
 {
@@ -109,6 +112,11 @@ bool Player::AttemptMove(sf::Vector2i _direction)
 	GridObject* blocker = nullptr;
 	for (int i = 0; i < targetCellContents.size(); ++i)
 	{
+		if (targetCellContents[i]->GetOpen() == true)
+		{
+			m_level->SetReadyToLoad();
+		}
+
 		if (targetCellContents[i]->GetCollectable() == true)
 		{
 			collectable = true;

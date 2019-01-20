@@ -4,10 +4,11 @@
 
 GridObject::GridObject()
 	: SpriteObject()
-	, m_gridPosition ()
+	, m_gridPosition()
 	, m_level(nullptr)
 	, m_blocksMovement(false)
 	, m_collectable(false)
+	, m_open(false)
 {
 
 }
@@ -44,4 +45,8 @@ bool GridObject::GetCollectable()
 	return m_collectable;
 }
 
+bool GridObject::GetOpen()
+{
+	return m_open;
+}
 

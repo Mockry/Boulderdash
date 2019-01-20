@@ -15,6 +15,9 @@ public:
 	void Draw(sf::RenderTarget& _target);
 	void Update(sf::Time _frameTime);
 	void Input(sf::Event _gameEvent);
+	void SetReset();
+	bool CheckGems();
+	void SetReadyToLoad();
 
 	void LoadLevel(int _levelToLoad);
 	void ReloadLevel();
@@ -27,8 +30,11 @@ public:
 
 private:
 
+	bool m_open;
+	bool m_pendingReset;
 	const float m_cellSize;
 	int m_currentLevel;
+	bool m_readyToLoad;
 	std::vector< std::vector <sf::Sprite > > m_background;
 
 	std::vector< std::vector< std::vector< GridObject* > > > m_contents;
