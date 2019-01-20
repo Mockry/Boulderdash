@@ -11,7 +11,7 @@ Boulder::Boulder()
 	, m_fallDelay (1.0f)
 
 {
-	m_sprite.setTexture(AssetManager::GetTexture("graphics/Box.png"));
+	m_sprite.setTexture(AssetManager::GetTexture("graphics/Boulder.png"));
 	m_blocksMovement = true;
 }
 
@@ -37,12 +37,6 @@ bool Boulder::AttemptFall(sf::Vector2i _direction, sf::Time _frametime)
 		if (targetCellContents[i]->GetBlocksMovement() == true)
 		{
 			blocked = true;
-			Boulder* boulder = dynamic_cast<Boulder*>(blocker);
-			if (boulder != nullptr)
-			{
-
-			}
-
 			m_timer = (0.0f);
 		}
 	}
