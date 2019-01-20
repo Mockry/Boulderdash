@@ -23,10 +23,12 @@ public:
 
 	sf::Vector2i GetGridPosition();
 	bool GetBlocksMovement();
+	bool GetCollectable();
 
 protected :
 
 	sf::Vector2i m_gridPosition;
 	Level* m_level;
 	bool m_blocksMovement;
+	bool m_collectable;
 };

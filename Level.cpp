@@ -7,7 +7,10 @@
 #include "Framework/AssetManager.h"
 #include "Wall.h"
 #include "Player.h"
-
+#include "Boulder.h"
+#include "Dirt.h"
+#include "Gem.h"
+#include "Exit.h"
 
 Level::Level()
 	: m_cellSize(64.0f)
@@ -98,9 +101,9 @@ void Level::LoadLevel(int _levelToLoad)
 	{
 		for (int x = 0; x < m_contents[y].size(); ++x)
 		{
-			for (int z = 0; z < m_contents[x].size(); ++z)
+			for (int z = 0; z < m_contents[y][x].size(); ++z)
 			{
-				delete m_contents[x][y][z];
+				delete m_contents[y][x][z];
 			}
 		}
 	}
@@ -184,12 +187,43 @@ void Level::LoadLevel(int _levelToLoad)
 			m_contents[y][x].push_back(wall);
 		}
 
+		else if (ch == 'D')
+		{
+			Dirt* dirt = new Dirt();
+			dirt->SetLevel(this);
+			dirt->SetGridPosition(x, y);
+			m_contents[y][x].push_back(dirt);
+		}
+
+		else if (ch == 'R')
+		{
+			Boulder* boulder = new Boulder();
+			boulder->SetLevel(this);
+			boulder->SetGridPosition(x, y);
+			m_contents[y][x].push_back(boulder);
+		}
+
+		else if (ch == 'G')
+		{
+			Gem* gem = new Gem();
+			gem->SetLevel(this);
+			gem->SetGridPosition(x, y);
+			m_contents[y][x].push_back(gem);
+		}
+
 		else if (ch == 'P')
 		{
 			Player* player = new Player();
 			player->SetLevel(this);
 			player->SetGridPosition(x, y);
 			m_contents[y][x].push_back(player);
+		}
+		else if (ch == 'E')
+		{
+			Exit* exit = new Exit();
+			exit->SetLevel(this);
+			exit->SetGridPosition(x, y);
+			m_contents[y][x].push_back(exit);
 		}
 		else
 		{
@@ -255,6 +289,33 @@ bool Level::MoveObjectTo(GridObject* _toMove, sf::Vector2i _targetPos)
 	return false;
 }
 
+bool Level::AttemptDelete(GridObject* _toMove)
+{
+	// don't trust other code. make sure _toMove is a valid pointer
+	if (_toMove != nullptr)
+	{
+		// get the current position of the grid object
+		sf::Vector2i oldPos = _toMove->GetGridPosition();
+
+		// Find the object in the list using an iterator
+		//and find method
+		auto it = std::find(m_contents[oldPos.y][oldPos.x].begin(),
+			m_contents[oldPos.y][oldPos.x].end(),
+			_toMove);
+		// if we found the object at this location it will not
+		// equal the the end of the vector
+		if (it != m_contents[oldPos.y][oldPos.x].end())
+		{
+			// we found the object
+			delete *it;
+			m_contents[oldPos.y][oldPos.x].erase(it);
+
+			return true;
+		}
+	}
+
+	return false;
+}
 
 std::vector< GridObject* > Level::GetObjectAt(sf::Vector2i _targetPos)
 {

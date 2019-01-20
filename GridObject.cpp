@@ -7,6 +7,7 @@ GridObject::GridObject()
 	, m_gridPosition ()
 	, m_level(nullptr)
 	, m_blocksMovement(false)
+	, m_collectable(false)
 {
 
 }
@@ -37,3 +38,10 @@ bool GridObject::GetBlocksMovement()
 {
 	return m_blocksMovement;
 }
+
+bool GridObject::GetCollectable()
+{
+	return m_collectable;
+}
+
+
