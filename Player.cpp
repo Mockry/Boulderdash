@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Framework/AssetManager.h"
 #include "Level.h"
+#include "Boulder.h"
 
 Player::Player()
 	: GridObject()
@@ -87,7 +88,10 @@ void Player::Update(sf::Time _frameTime)
 	}
 }
 
-
+bool Player::GetPendingLoad()
+{
+	return m_pendingLoad;
+}
 
 bool Player::AttemptMove(sf::Vector2i _direction)
 {
@@ -108,6 +112,11 @@ bool Player::AttemptMove(sf::Vector2i _direction)
 	GridObject* blocker = nullptr;
 	for (int i = 0; i < targetCellContents.size(); ++i)
 	{
+		if (targetCellContents[i]->GetOpen() == true)
+		{
+			m_level->SetReadyToLoad();
+		}
+
 		if (targetCellContents[i]->GetCollectable() == true)
 		{
 			collectable = true;
@@ -118,6 +127,8 @@ bool Player::AttemptMove(sf::Vector2i _direction)
 			blocked = true;
 			blocker = targetCellContents[i];
 		}		
+		
+
 	}
 
 	//if empty, move there
@@ -129,9 +140,22 @@ bool Player::AttemptMove(sf::Vector2i _direction)
 	{
 		m_level->AttemptDelete(blocker);
 		return m_level->MoveObjectTo(this, targetPos);
+	}
+	Boulder* pushableBoulder = dynamic_cast<Boulder*>(blocker);
+	if (pushableBoulder != nullptr)
+	{
+		// Attempt to push!
+		bool pushSucceeded = pushableBoulder->AttemptPush(_direction);
 
+		// If push succeeded
+		if (pushSucceeded == true)
+		{
+			// Move to new spot (where blocker was)
+			return m_level->MoveObjectTo(this, targetPos);
+		}
 	}
 	
+
 	//if movement is blocked,return false
 	return false;
 }

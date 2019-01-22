@@ -15,7 +15,10 @@
 Level::Level()
 	: m_cellSize(64.0f)
 	, m_currentLevel(1)
-	, m_background()	
+	, m_background()
+	, m_pendingReset(false)
+	, m_open(false)
+
 {
 	LoadLevel(1);
 }
@@ -64,7 +67,7 @@ void Level::Draw(sf::RenderTarget& _target)
 
 void Level::Update(sf::Time _frameTime)
 {
-	//TODO
+	
 	for (int y = 0; y < m_contents.size(); ++y)
 	{
 		for (int x = 0; x < m_contents[y].size(); ++x)
@@ -75,6 +78,7 @@ void Level::Update(sf::Time _frameTime)
 			}
 		}
 	}
+	
 }
 
 void Level::Input(sf::Event _gameEvent)
@@ -89,11 +93,63 @@ void Level::Input(sf::Event _gameEvent)
 			}
 		}
 	}
+	if (m_pendingReset == true)
+	{
+		m_pendingReset = false;
+		ReloadLevel();
+	}
+
+	if (m_readyToLoad == true)
+	{
+		m_readyToLoad = false;
+	    LoadNextLevel();
+	}
+	
+}
+
+void Level::SetReset()
+{
+	m_pendingReset = true;
+}
+
+bool Level::CheckGems()
+{
+	// rows
+	for (int y = 0; y < m_contents.size(); ++y)
+	{
+		// cells
+		for (int x = 0; x < m_contents[y].size(); ++x)
+		{
+			// sticky outies (grid objects)
+			for (int z = 0; z < m_contents[y][x].size(); ++z)
+			{
+				// The current object we are examining
+				GridObject* thisObject = m_contents[y][x][z];
+
+				// Check if it is a box via dynamic cast
+				Gem* gemObject = dynamic_cast<Gem*>(thisObject);
+				if (gemObject != nullptr)
+				{
+					// return false if any gems are on the map
+					
+					return false;
+				}
+				
+			}
+		}
+	}
+	return true;
+}
+
+void Level::SetReadyToLoad()
+{
+	m_readyToLoad = true;
 }
 
 
 void Level::LoadLevel(int _levelToLoad)
 {
+	
 	// Clean up the old level
 
 	//Delete any data already in the level

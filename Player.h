@@ -13,14 +13,16 @@ public:
 	//ovverriding methods
 	virtual void Input(sf::Event _gameEvent);
 	virtual void Update(sf::Time _frameTime);
+	bool GetPendingLoad();
 
 private:
-
+	
 	bool AttemptMove(sf::Vector2i _direction);
 
 	//data
 private:
 
+	bool m_pendingLoad;
 	sf::Vector2i m_pendingMove;
 	sf::Sound m_moveSound;
 	sf::Sound m_blockSound;
