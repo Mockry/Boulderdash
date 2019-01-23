@@ -10,16 +10,14 @@ Exit::Exit()
 {
 	m_sprite.setTexture(AssetManager::GetTexture("graphics/DoorClosed.png"));
 	m_blocksMovement = true;
-	m_open = false;
 }
 
 
 void Exit::SetOpen()
 {
+	//Check gems returns true when there are no gems left in the levl
 	m_open = m_level->CheckGems();
 }
-
-
 
 void Exit::Update(sf::Time _frameTime)
 {

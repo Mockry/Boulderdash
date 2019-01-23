@@ -4,13 +4,14 @@
 #include "Framework/AssetManager.h"
 #include "Level.h"
 #include "player.h"
+#include "Gem.h"
 
 Boulder::Boulder()
 	: GridObject()
 	, m_timer(0.0f)
-	, m_fallDelay(1.0f)
+	, m_fallDelay(0.7f)
 	, m_falling(false)
-	, m_slideDelay(0.7f)
+	, m_slideDelay(0.5f)
 	, m_slideTimer(0.0f)
 	, m_sliding(false)
 
@@ -38,20 +39,27 @@ bool Boulder::AttemptFall(sf::Vector2i _direction, sf::Time _frametime)
 	{
 		blocker = targetCellContents[i];
 
+		//cycles through every object in the space and checks if any of them block movement
 		if (targetCellContents[i]->GetBlocksMovement() == true)
 		{
+			//Dynamic cast to check if the blocker is a boulder
 			Boulder* boulder = dynamic_cast<Boulder*>(blocker);
-
-			if (boulder != nullptr && m_falling == true)
+			// and check for Gems
+			Gem* gem = dynamic_cast<Gem*>(blocker);
+			// checks if the boulder has fallen onto a gem or boulder
+			if ((boulder != nullptr || gem!= nullptr) && m_falling == true)
 			{
+				// sets sliding to true that the fall timer will start even after falling is reset to false
 				m_sliding = true;	
 			}
+			// begins the slide timer and calls attemptSlide after a delay
 			if (m_sliding == true)
 			{
 				m_slideTimer += _frametime.asSeconds();
 			}
 			if (m_slideTimer > m_slideDelay)
 			{
+				// runs attemptSlide to the right and then the left if it returns false the first time
 				if (!AttemptSlide(sf::Vector2i(1, 1)))
 				{
 					AttemptSlide(sf::Vector2i(-1, 1));
@@ -59,6 +67,7 @@ bool Boulder::AttemptFall(sf::Vector2i _direction, sf::Time _frametime)
 			}
 
 			blocked = true;
+			// resets the fall delay and sets falling to false so the boulder won't attempt to slide everyframe
 			m_falling = false;
 			m_timer = (0.0f);
 		}
@@ -73,6 +82,7 @@ bool Boulder::AttemptFall(sf::Vector2i _direction, sf::Time _frametime)
 	//move to space after 1 second
 	if (m_timer > m_fallDelay)
 	{
+		// m_falling lets the boulder know to attempt to slide when it hits an obstacle
 		m_falling = true;
 
 		//Checks if the player is underneath the boulder that is falling
@@ -82,7 +92,8 @@ bool Boulder::AttemptFall(sf::Vector2i _direction, sf::Time _frametime)
 			// resets the level if the boulder hits the player
 			m_level->SetReset();
 		}
-
+		// resets the timer between frames so the boulders fall 1 space at a time
+		m_timer = 0.5f;
 		return m_level->MoveObjectTo(this, targetPos);
 	}
 	
@@ -113,6 +124,7 @@ bool Boulder::AttemptPush(sf::Vector2i _direction)
 
 	if (blocked == false)
 	{
+		// moves object to the target space if there is nothing there
 		m_level->MoveObjectTo(this, targetPos);
 		return true;
 	}
@@ -148,6 +160,7 @@ bool Boulder::AttemptSlide(sf::Vector2i _direction)
 
 		for (int i = 0; i < targetCellContents.size(); ++i)
 		{
+			// checks if the targetcell contains the player
 			blocker = targetCellContents[i];
 
 			Player* player = dynamic_cast<Player*>(blocker);
@@ -157,6 +170,8 @@ bool Boulder::AttemptSlide(sf::Vector2i _direction)
 				m_level->SetReset();
 			}
 		}
+
+		// moves the object to it's new position and resets m_sliding and the timer so it stops attemtping to slide
 		m_level->MoveObjectTo(this, targetPos);
 		m_sliding = false;
 		m_slideTimer = 0.0f;

@@ -64,6 +64,18 @@ void Player::Input(sf::Event _gameEvent)
 
 		}
 	}
+	else if (_gameEvent.key.code == sf::Keyboard::P)
+	{
+		//Reset level when P is pressed
+		m_level->SetReset();
+
+	}
+	else if (_gameEvent.key.code == sf::Keyboard::O)
+	{
+		//Reset level when O is pressed
+		m_level->SetReadyToLoad();
+
+	}
 }
 
 void Player::Update(sf::Time _frameTime)
@@ -88,10 +100,7 @@ void Player::Update(sf::Time _frameTime)
 	}
 }
 
-bool Player::GetPendingLoad()
-{
-	return m_pendingLoad;
-}
+
 
 bool Player::AttemptMove(sf::Vector2i _direction)
 {

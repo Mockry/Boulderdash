@@ -78,6 +78,19 @@ void Level::Update(sf::Time _frameTime)
 			}
 		}
 	}
+
+	// calls Reload or Loadnext at the end of the update if they are pending
+	if (m_pendingReset == true)
+	{
+		m_pendingReset = false;
+		ReloadLevel();
+	}
+
+	if (m_readyToLoad == true)
+	{
+		m_readyToLoad = false;
+		LoadNextLevel();
+	}
 	
 }
 
@@ -93,17 +106,7 @@ void Level::Input(sf::Event _gameEvent)
 			}
 		}
 	}
-	if (m_pendingReset == true)
-	{
-		m_pendingReset = false;
-		ReloadLevel();
-	}
-
-	if (m_readyToLoad == true)
-	{
-		m_readyToLoad = false;
-	    LoadNextLevel();
-	}
+	
 	
 }
 
